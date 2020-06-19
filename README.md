@@ -9,13 +9,49 @@ Adds custom properties to products.
 ## Configuration
 
 Set the following values in your Shopgate Connect Admin:
+
 * `addProperties` - (csv string) Comma-separated list of properties to add
+* `productsProperties` - (object[]) Configuration to show properties at given portal positions
+
+    * `target` (string[]) the list of target portals 
+    * `properties` (string[]) the list of product properties to show in target(s)
+    * `styles` (json) the extra styling in css (glamor) format 
+    * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
+        - `label` property label
+        - `value` property value
+    * `html` (bool) show property value as html (html sanitizer will be used, same as html widgets)
+
 
 ### Example of configuration
 
 ```json
 {
-    "addProperties":"Weight,Width,Height,ISBN"
+  "addProperties": [
+    "Weight",
+    "Width",
+    "Height",
+    "ISBN"
+  ],
+  "productsProperties": [
+    {
+      "target": ["product-item.name.after"],
+      "properties": ["ISBN"],
+      "styling": {
+        "color": "#f00"
+      },
+      "format": "{label}: {value}"
+    },
+    {
+      "target": ["product.priceInfo.after"],
+      "properties": ["Bonus points"],
+      "format": "Bonuses for order: {value} 💰 "
+    },
+    {
+      "target": ["product.name.after"],
+      "properties": ["Long name"],
+      "html": true
+    }
+  ]
 }
 ```
 

@@ -1,15 +1,70 @@
 {
-  "version": "1.1.1",
-  "id": "@shopgate/products-add-properties",
-  "components": [],
+  "version": "2.0.0",
+  "id": "@shopgate-project/products-properties",
+  "components": [
+    {
+      "id": "ProductProperties",
+      "path": "frontend/portals/ProductProperties",
+      "target": [
+        "product-item.name.before",
+        "product-item.name.after",
+        "product-item.price.before",
+        "product-item.price.after"
+      ],
+      "type": "portals"
+    },
+    {
+      "id": "ProductPropertiesPdp",
+      "path": "frontend/portals/ProductPropertiesPdp",
+      "target": [
+        "product.name.before",
+        "product.name.after",
+        "product.priceInfo.before",
+        "product.priceInfo.after"
+      ],
+      "type": "portals"
+    },
+    {
+      "id": "ProductPropertiesFav",
+      "path": "frontend/portals/ProductPropertiesFav",
+      "target": [
+        "favorites.product-name.before",
+        "favorites.product-name.after",
+        "favorites.product-price.before",
+        "favorites.product-price.after"
+      ],
+      "type": "portals"
+    },
+    {
+      "id": "ProductPropertiesCart",
+      "path": "frontend/portals/ProductPropertiesCart",
+      "target": [
+        "cart.item.name.before",
+        "cart.item.name.after",
+        "cart.item.price.before",
+        "cart.item.price.after"
+      ],
+      "type": "portals"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale",
+      "id": "locale/de-DE"
+    },
+    {
+      "type": "translations",
+      "path": "frontend/locale",
+      "id": "locale/de-DE"
+    }
+  ],
   "configuration": {
     "addProperties": {
       "type": "admin",
       "destination": "backend",
-      "default": "",
+      "default": null,
       "params": {
-        "type": "textbox",
-        "label": "List of properties to add",
+        "type": "json",
+        "label": "List of properties to add in json format (array of strings)",
         "required": false,
         "options": {
           "placeholder": {
@@ -21,6 +76,15 @@
     "apiCredentials": {
       "type": "bigApiCredentials",
       "destination" : "backend"
+    },
+    "productsProperties": {
+      "type": "admin",
+      "destination": "both",
+      "default": null,
+      "params": {
+        "type": "json",
+        "label": "Configuration to show properties at given portal positions"
+      }
     }
   },
   "steps": [
