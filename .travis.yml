@@ -1,0 +1,12 @@
+language: node_js
+node_js: 8
+install:
+- cd extension; npm install; cd ..
+- npm i -g npm
+script:
+- cd extension; npm audit; cd ..
+- cd extension; npm t; cd ..
+- cd extension; npm run standard; cd ..
+notifications:
+  slack:
+    secure: PMame04w4wEflCwrJxv/cZ2pdL2u134tNFSIVCBRWBGub3ef3LjWp0CZPGnELfEkJJuUenHTezaurdE4U04qWA73ZXLIPMfUa5aqXBYv/XOED2BSsYVlQGIjM5b4xVMxwGpvX1YxIsRTpRv2LRpuEgSDwGHAkiS9y88GZWhNZyLGaaTzl58EvNg9+5ghY3lFTJknlF8AZ35FSPQyZNolgErEg8dAG4ExygAhmD07XITXg6eS2rkX7fWClQHqQ7Kcq1YR6522am6ltCZo7NqiH/ZE+1usPYkhzj+m0UoOPAq0QL8CI1CxZXVR0HJ3nvAASzBOcAoagxv2PQ8qs/DlyQQbUb11N0g3PLKSG52zKSbPcRz7xJ+EI7kCRdZlQpLEvEFhq8IXpdtRmyr0RQ3MoLccJ/5kOBG+4I5UDFDZmauclc/ifUVWtwshLhLv2z4g/Tum3c4PHQVA7p2itKwE6SVLMzgydquGDkkhUYeU7leF8WxuT7dCOmIKHPzIO4Z0NK7+mBhoq5OfWOxP3Q/zutloLdVZNu7+Ga+eXgG57wm+3mxANpu60T39+DLCNqwDQygLHA2t6OmwUzj+Oh6vMbjsPbrEIKpk9y8mzkDhmacz1b6EHg3PfcxzvoGvYoxBhjd2Uiflzs2/5oxH/ltCNiO8PGNigfAsmlxjOQ6EIh8=

@@ -1,0 +1,16 @@
+"nyc": {
+  "include": [
+    "**/*.js"
+  ],
+  "exclude": [
+    "build",
+    "test",
+    "models"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "all": true,
+  "report-dir": "build"
+}
