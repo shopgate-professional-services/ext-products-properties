@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import css from 'glamor';
+import { css } from 'glamor';
 import { i18n, bin2hex } from '@shopgate/engage/core';
 import { HtmlSanitizer } from '@shopgate/engage/components';
 

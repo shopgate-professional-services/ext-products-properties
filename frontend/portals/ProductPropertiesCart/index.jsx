@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import PropTypes from 'prop-types';
-import { withPropertiesByProductId } from '../../properties/connectors';
+import { withPropertiesByCartItemId } from '../../properties/connectors';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
 
@@ -8,7 +8,7 @@ import ProductPropertiesCmp from '../../components/ProductProperties';
  * @param {Object} props Props
  * @return {JSX}
  */
-const ProductProperties = ({ name, properties }) => {
+const ProductPropertiesCart = ({ name, properties }) => {
   const configs = useTargetConfigs(name);
 
   if (!properties || !configs) {
@@ -19,7 +19,7 @@ const ProductProperties = ({ name, properties }) => {
     <Fragment>
       {configs.map(config => (
         <ProductPropertiesCmp
-          key={JSON.stringify(config.properties)}
+          key={`${name}-${JSON.stringify(config)}`}
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
@@ -30,13 +30,13 @@ const ProductProperties = ({ name, properties }) => {
   );
 };
 
-ProductProperties.propTypes = {
+ProductPropertiesCart.propTypes = {
   name: PropTypes.node.isRequired,
   properties: PropTypes.arrayOf(PropTypes.shape()),
 };
 
-ProductProperties.defaultProps = {
+ProductPropertiesCart.defaultProps = {
   properties: null,
 };
 
-export default withPropertiesByProductId(memo(ProductProperties));
+export default withPropertiesByCartItemId(memo(ProductPropertiesCart));

@@ -19,7 +19,7 @@ const ProductProperties = ({ name, properties }) => {
     <Fragment>
       {configs.map(config => (
         <ProductPropertiesCmp
-          key={JSON.stringify(config.properties)}
+          key={`${name}-${JSON.stringify(config)}`}
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}

@@ -14,5 +14,5 @@ export const useTargetConfigs = (target) => {
     return productsProperties.filter(config => config.target.includes(target));
   }, [target]);
 
-  return configs.length ? configs : null;
+  return configs && configs.length ? configs : null;
 };

@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "1.0.0",
   "id": "@shopgate-project/products-properties",
   "components": [
     {
@@ -19,8 +19,8 @@
       "target": [
         "product.name.before",
         "product.name.after",
-        "product.priceInfo.before",
-        "product.priceInfo.after"
+        "product.price-info.before",
+        "product.price-info.after"
       ],
       "type": "portals"
     },
@@ -49,7 +49,7 @@
     {
       "type": "translations",
       "path": "frontend/locale",
-      "id": "locale/de-DE"
+      "id": "locale/en-US"
     },
     {
       "type": "translations",

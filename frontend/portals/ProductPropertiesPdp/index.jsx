@@ -1,5 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import PropTypes from 'prop-types';
+import { withCurrentProduct } from '@shopgate/engage/core';
 import { withPropertiesByProductId } from '../../properties/connectors';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
@@ -8,7 +9,7 @@ import ProductPropertiesCmp from '../../components/ProductProperties';
  * @param {Object} props Props
  * @return {JSX}
  */
-const ProductProperties = ({ name, properties }) => {
+const ProductPropertiesPdp = ({ name, properties }) => {
   const configs = useTargetConfigs(name);
 
   if (!properties || !configs) {
@@ -19,7 +20,7 @@ const ProductProperties = ({ name, properties }) => {
     <Fragment>
       {configs.map(config => (
         <ProductPropertiesCmp
-          key={JSON.stringify(config.properties)}
+          key={`${name}-${JSON.stringify(config)}`}
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
@@ -30,13 +31,17 @@ const ProductProperties = ({ name, properties }) => {
   );
 };
 
-ProductProperties.propTypes = {
+ProductPropertiesPdp.propTypes = {
   name: PropTypes.node.isRequired,
   properties: PropTypes.arrayOf(PropTypes.shape()),
 };
 
-ProductProperties.defaultProps = {
+ProductPropertiesPdp.defaultProps = {
   properties: null,
 };
 
-export default withPropertiesByProductId(memo(ProductProperties));
+export default withCurrentProduct(
+  withPropertiesByProductId(
+    memo(ProductPropertiesPdp)
+  )
+);

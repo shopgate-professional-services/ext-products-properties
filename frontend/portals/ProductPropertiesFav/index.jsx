@@ -1,6 +1,5 @@
 import React, { Fragment, memo } from 'react';
 import PropTypes from 'prop-types';
-import { withPropertiesByProductId } from '../../properties/connectors';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
 
@@ -8,10 +7,11 @@ import ProductPropertiesCmp from '../../components/ProductProperties';
  * @param {Object} props Props
  * @return {JSX}
  */
-const ProductProperties = ({ name, properties }) => {
+const ProductPropertiesFav = ({ name, product }) => {
   const configs = useTargetConfigs(name);
 
-  if (!properties || !configs) {
+  const { additionalProperties } = product || {};
+  if (!additionalProperties || !configs) {
     return null;
   }
 
@@ -19,24 +19,20 @@ const ProductProperties = ({ name, properties }) => {
     <Fragment>
       {configs.map(config => (
         <ProductPropertiesCmp
-          key={JSON.stringify(config.properties)}
+          key={`${name}-${JSON.stringify(config)}`}
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
-          properties={properties.filter(prop => config.properties.includes(prop.label))}
+          properties={additionalProperties.filter(prop => config.properties.includes(prop.label))}
         />
       ))}
     </Fragment>
   );
 };
 
-ProductProperties.propTypes = {
+ProductPropertiesFav.propTypes = {
   name: PropTypes.node.isRequired,
-  properties: PropTypes.arrayOf(PropTypes.shape()),
+  product: PropTypes.shape().isRequired,
 };
 
-ProductProperties.defaultProps = {
-  properties: null,
-};
-
-export default withPropertiesByProductId(memo(ProductProperties));
+export default memo(ProductPropertiesFav);
