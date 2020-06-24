@@ -1,3 +1,4 @@
+const { getConfiguredProperties } = require('./helpers')
 const getOriginalProducts = require('./getOriginalProducts')
 
 module.exports = async (context, input) => {
@@ -6,13 +7,7 @@ module.exports = async (context, input) => {
 
   const { products } = await getOriginalProducts(context, input)
 
-  const addProperties = config
-    .addProperties
-    .split(',')
-    .map(p => p.trim())
-    .filter(Boolean)
-    .map(val => val.toLowerCase())
-
+  const addProperties = getConfiguredProperties(config)
   if (addProperties.length === 0) {
     return { cartItems }
   }

@@ -6,16 +6,77 @@
 
 Adds custom properties to products.
 
+This extension replaces [@shopgate/products-add-properties](https://github.com/shopgate/ext-products-add-properties) and adds additional functionality to show properties in frontend.
+
 ## Configuration
 
 Set the following values in your Shopgate Connect Admin:
-* `addProperties` - (csv string) Comma-separated list of properties to add
+
+* `addProperties` - (csv string) Comma-separated list of properties to add to pipeline output
+* `productsProperties` - (object[]) Configuration to show properties at given portal positions
+
+    * `target` (string[]) the list of target portals
+    * `properties` (string[]) the list of product properties to show in target(s)
+    * `styles` (json) the extra styling in css (glamor) format
+    * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
+        - `label` property label
+        - `value` property value
+    * `html` (bool) show property value as html (html sanitizer will be used, same as html widgets)
+
+### available target positions
+
+```json
+"product-item.name.before",
+"product-item.name.after",
+"product-item.price.before",
+"product-item.price.after"
+
+"product.name.before",
+"product.name.after",
+"product.price-info.before",
+"product.price-info.after"
+
+"favorites.product-name.before",
+"favorites.product-name.after",
+"favorites.product-price.before",
+"favorites.product-price.after",
+
+"cart.item.name.before",
+"cart.item.name.after",
+"cart.item.price.before",
+"cart.item.price.after"
+```
 
 ### Example of configuration
 
 ```json
 {
-    "addProperties":"Weight,Width,Height,ISBN"
+  "addProperties": [
+    "Weight",
+    "Width",
+    "Height",
+    "ISBN"
+  ],
+  "productsProperties": [
+    {
+      "target": ["product-item.name.after"],
+      "properties": ["ISBN"],
+      "styling": {
+        "color": "#f00"
+      },
+      "format": "{label}: {value}"
+    },
+    {
+      "target": ["product.priceInfo.after"],
+      "properties": ["Bonus points"],
+      "format": "Bonuses for order: {value} 💰 "
+    },
+    {
+      "target": ["product.name.after"],
+      "properties": ["Long name"],
+      "html": true
+    }
+  ]
 }
 ```
 

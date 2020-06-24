@@ -1,12 +1,13 @@
+const { getConfiguredProperties } = require('./helpers')
+
 module.exports = async (context, input) => {
   const { config } = context
   const { products } = input
 
-  const addProperties = config.addProperties.split(',')
-    .filter(val => val) // remove empty values
-    .map(val => val.toLowerCase())
-
-  if (addProperties.length === 0 || products.length === 0) return
+  const addProperties = getConfiguredProperties(config)
+  if (addProperties.length === 0 || products.length === 0) {
+    return
+  }
 
   const product = products[0]
 
