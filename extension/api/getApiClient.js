@@ -1,14 +1,16 @@
 const { ExternalBigAPI, TokenHandler } = require('@shopgate/bigapi-requester')
+const config = require('../config.json')
 
-module.exports = (context) =>
-  new ExternalBigAPI(
-    new TokenHandler(
-      {
-        api: `https://{serviceName}.${context.config.apiCredentials.baseDomain}`,
-        clientId: context.config.apiCredentials.clientId,
-        clientSecret: context.config.apiCredentials.clientSecret,
-        grantType: 'refresh_token',
-        refreshToken: context.config.apiCredentials.refreshToken
-      }
-    )
+const bigApi = new ExternalBigAPI(
+  new TokenHandler(
+    {
+      api: `https://{serviceName}.${config.apiCredentials.baseDomain}`,
+      clientId: config.apiCredentials.clientId,
+      clientSecret: config.apiCredentials.clientSecret,
+      grantType: 'refresh_token',
+      refreshToken: config.apiCredentials.refreshToken
+    }
   )
+)
+
+module.exports = () => bigApi
