@@ -6,7 +6,7 @@ const getApiClient = require('./api/getApiClient')
  * @returns {Promise<{products: Object[]}>}
  */
 module.exports = async (context, { productIds }) => {
-  const apiClient = getApiClient(context)
+  const apiClient = getApiClient()
 
   try {
     const { body: { collection = [] } } = await apiClient.request({
