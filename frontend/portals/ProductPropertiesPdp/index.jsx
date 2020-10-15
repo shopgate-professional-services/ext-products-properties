@@ -4,6 +4,7 @@ import { withCurrentProduct } from '@shopgate/engage/core';
 import { withPropertiesByProductId } from '../../properties/connectors';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
+import { filterProperties } from '../../properties/helpers';
 
 /**
  * @param {Object} props Props
@@ -24,7 +25,7 @@ const ProductPropertiesPdp = ({ name, properties }) => {
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
-          properties={properties.filter(prop => config.properties.includes(prop.label))}
+          properties={filterProperties(properties, config)}
         />
       ))}
     </Fragment>

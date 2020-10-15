@@ -17,6 +17,8 @@ Set the following values in your Shopgate Connect Admin:
 
     * `target` (string[]) the list of target portals
     * `properties` (string[]) the list of product properties to show in target(s)
+    * `include_values` (string[]) whitelist of properties values (to show only given)
+    * `exclude_values` (string[]) blacklist of properties values (to show all except given)
     * `styles` (json) the extra styling in css (glamor) format
     * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
         - `label` property label
@@ -25,14 +27,22 @@ Set the following values in your Shopgate Connect Admin:
 
 ### available target positions
 
+Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
+
 ```json
 "product-item.name.before",
 "product-item.name.after",
 "product-item.price.before",
 "product-item.price.after"
 
+"product.header.before",
+"product.header.after",
 "product.name.before",
 "product.name.after",
+"product.info.before",
+"product.info.after",
+"product.stock-info.before",
+"product.stock-info.after",
 "product.price-info.before",
 "product.price-info.after"
 
@@ -61,7 +71,7 @@ Set the following values in your Shopgate Connect Admin:
     {
       "target": ["product-item.name.after"],
       "properties": ["ISBN"],
-      "styling": {
+      "styles": {
         "color": "#f00"
       },
       "format": "{label}: {value}"
@@ -75,6 +85,22 @@ Set the following values in your Shopgate Connect Admin:
       "target": ["product.name.after"],
       "properties": ["Long name"],
       "html": true
+    },
+    {
+      "target": ["product.name.after"],
+      "properties": ["Hint"],
+      "include_values": ["Important hint"],
+      "styles": {
+        "color": "red"
+      }
+    },
+    {
+      "target": ["product.name.after"],
+      "properties": ["Hint"],
+      "exclude_values": ["Important hint"],
+      "styles": {
+        "color": "grey"
+      }
     }
   ]
 }

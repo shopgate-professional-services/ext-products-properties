@@ -2,6 +2,7 @@ import React, { Fragment, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
+import { filterProperties } from '../../properties/helpers';
 
 /**
  * @param {Object} props Props
@@ -23,7 +24,7 @@ const ProductPropertiesFav = ({ name, product }) => {
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
-          properties={additionalProperties.filter(prop => config.properties.includes(prop.label))}
+          properties={filterProperties(additionalProperties, config)}
         />
       ))}
     </Fragment>
