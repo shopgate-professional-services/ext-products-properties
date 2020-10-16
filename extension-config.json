@@ -51,16 +51,6 @@
         "cart.item.price.after"
       ],
       "type": "portals"
-    },
-    {
-      "type": "translations",
-      "path": "frontend/locale",
-      "id": "locale/en-US"
-    },
-    {
-      "type": "translations",
-      "path": "frontend/locale",
-      "id": "locale/de-DE"
     }
   ],
   "configuration": {

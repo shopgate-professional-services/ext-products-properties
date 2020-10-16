@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
-import { i18n, bin2hex } from '@shopgate/engage/core';
 import { HtmlSanitizer } from '@shopgate/engage/components';
+import { getIntlMessage } from '../../helpers';
 
 /**
  * @param {Object} props Props
@@ -11,6 +11,10 @@ import { HtmlSanitizer } from '@shopgate/engage/components';
 const ProductProperties = ({
   format, isHtml, styles, properties,
 }) => {
+  if (!format && !isHtml) {
+    return null;
+  }
+
   const className = css(styles).toString();
 
   if (isHtml) {
@@ -35,10 +39,7 @@ const ProductProperties = ({
           key={property.label}
           className={className}
         >
-          {i18n.text(
-            `product_properties.${bin2hex(format)}`,
-            property
-          )}
+          {getIntlMessage(format).format(property)}
         </div>
       ))}
     </Fragment>
