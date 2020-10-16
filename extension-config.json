@@ -17,8 +17,14 @@
       "id": "ProductPropertiesPdp",
       "path": "frontend/portals/ProductPropertiesPdp",
       "target": [
+        "product.header.before",
+        "product.header.after",
         "product.name.before",
         "product.name.after",
+        "product.info.before",
+        "product.info.after",
+        "product.stock-info.before",
+        "product.stock-info.after",
         "product.price-info.before",
         "product.price-info.after"
       ],
@@ -45,16 +51,6 @@
         "cart.item.price.after"
       ],
       "type": "portals"
-    },
-    {
-      "type": "translations",
-      "path": "frontend/locale",
-      "id": "locale/en-US"
-    },
-    {
-      "type": "translations",
-      "path": "frontend/locale",
-      "id": "locale/de-DE"
     }
   ],
   "configuration": {
