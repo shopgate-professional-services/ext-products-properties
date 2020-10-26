@@ -16,9 +16,12 @@ Set the following values in your Shopgate Connect Admin:
 * `productsProperties` - (object[]) Configuration to show properties at given portal positions
 
     * `target` (string[]) the list of target portals
+        - `product.properties` uses default layout and just blacklist properties by `exclude_properties` option
     * `properties` (string[]) the list of product properties to show in target(s)
+    * `exclude_properties` (string[]) the list of product properties to exclude (to show all except given)
     * `include_values` (string[]) whitelist of properties values (to show only given)
     * `exclude_values` (string[]) blacklist of properties values (to show all except given)
+    * `use_default_layout` (boolean) use default (product details) layout for properties. When this options is active, `styles`, `format`, `html` options are ignored 
     * `styles` (json) the extra styling in css (glamor) format
     * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
         - `label` property label
@@ -44,7 +47,9 @@ Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
 "product.stock-info.before",
 "product.stock-info.after",
 "product.price-info.before",
-"product.price-info.after"
+"product.price-info.after",
+"product.description.before"
+"product.properties"
 
 "favorites.product-name.before",
 "favorites.product-name.after",
@@ -101,6 +106,15 @@ Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
       "styles": {
         "color": "grey"
       }
+    },
+    {
+      "target": ["product.description.before"],
+      "properties": ["Hersteller"],
+      "use_default_layout": true
+    },
+    {
+      "target": ["product.properties"],
+      "exclude_properties": ["Hersteller"]
     }
   ]
 }

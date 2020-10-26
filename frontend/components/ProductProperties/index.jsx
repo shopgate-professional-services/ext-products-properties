@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import { HtmlSanitizer } from '@shopgate/engage/components';
+import DefaultPropertiesCmp from '@shopgate/engage/product/components/ProductProperties/Content';
 import { getIntlMessage } from '../../helpers';
 
 /**
@@ -9,13 +10,21 @@ import { getIntlMessage } from '../../helpers';
  * @return {JSX}
  */
 const ProductProperties = ({
-  format, isHtml, styles, properties,
+  format, isHtml, useDefaultLayout, styles, properties,
 }) => {
-  if (!format && !isHtml) {
+  if (!format && !isHtml && !useDefaultLayout) {
     return null;
   }
 
   const className = css(styles).toString();
+
+  if (useDefaultLayout) {
+    return (
+      <div className={className}>
+        <DefaultPropertiesCmp properties={properties} />
+      </div>
+    );
+  }
 
   if (isHtml) {
     return (
@@ -51,6 +60,7 @@ ProductProperties.propTypes = {
   isHtml: PropTypes.bool,
   properties: PropTypes.arrayOf(PropTypes.shape()),
   styles: PropTypes.shape(),
+  useDefaultLayout: PropTypes.bool,
 };
 
 ProductProperties.defaultProps = {
@@ -58,6 +68,7 @@ ProductProperties.defaultProps = {
   isHtml: false,
   properties: null,
   styles: null,
+  useDefaultLayout: false,
 };
 
 export default ProductProperties;

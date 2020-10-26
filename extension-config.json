@@ -14,6 +14,14 @@
       "type": "portals"
     },
     {
+      "id": "ProductPropertiesBasePdp",
+      "path": "frontend/portals/ProductPropertiesBasePdp",
+      "target": [
+        "product.properties"
+      ],
+      "type": "portals"
+    },
+    {
       "id": "ProductPropertiesPdp",
       "path": "frontend/portals/ProductPropertiesPdp",
       "target": [
@@ -26,7 +34,8 @@
         "product.stock-info.before",
         "product.stock-info.after",
         "product.price-info.before",
-        "product.price-info.after"
+        "product.price-info.after",
+        "product.description.before"
       ],
       "type": "portals"
     },

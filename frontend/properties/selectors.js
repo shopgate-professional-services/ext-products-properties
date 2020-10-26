@@ -1,21 +1,35 @@
 import { createSelector } from 'reselect';
-import { getProductDataById } from '@shopgate/engage/product';
+import { getProductDataById, makeGetProductProperties } from '@shopgate/engage/product';
 import { getCartProducts } from '@shopgate/engage/cart';
 
 /**
  * @returns {null|Object[]}
  */
-export const getPropertiesByProductId = createSelector(
-  getProductDataById,
-  (productData) => {
-    if (!productData) {
-      return null;
-    }
+export const makeGetPropertiesByProductId = () => {
+  const getProductProperties = makeGetProductProperties();
 
-    const { additionalProperties } = productData || {};
-    return additionalProperties || null;
-  }
-);
+  return createSelector(
+    getProductDataById,
+    getProductProperties,
+    (productData, productProperties) => {
+      if (!productData) {
+        return null;
+      }
+
+      let { additionalProperties = [] } = productData || {};
+      if (productProperties) {
+        // Add product properties
+        additionalProperties = additionalProperties.concat(productProperties);
+        // Remove duplicates
+        additionalProperties = additionalProperties.filter((p, ind) => (
+          ind === additionalProperties.findIndex(ap => ap.label === p.label)
+        ));
+      }
+
+      return additionalProperties.length ? additionalProperties : null;
+    }
+  );
+};
 
 /**
  * @returns {null|Object[]}
