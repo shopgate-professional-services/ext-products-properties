@@ -12,11 +12,6 @@ export const filterProperties = (properties, config) => {
     props = props.filter(prop => config.properties.includes(prop.label.normalize()));
   }
 
-  /** Exclude properties */
-  if (props.length && config.exclude_properties) {
-    props = props.filter(prop => !config.exclude_properties.includes(prop.label.normalize()));
-  }
-
   /** Include properties values */
   if (props.length && config.include_values) {
     props = props.filter(prop => config.include_values.includes(prop.value.normalize()));

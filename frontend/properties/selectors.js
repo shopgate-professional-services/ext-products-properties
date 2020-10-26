@@ -1,16 +1,14 @@
 import { createSelector } from 'reselect';
-import { getProductDataById, makeGetProductProperties } from '@shopgate/engage/product';
+import { getProductDataById, getProductPropertiesUnfiltered } from '@shopgate/engage/product';
 import { getCartProducts } from '@shopgate/engage/cart';
 
 /**
  * @returns {null|Object[]}
  */
-export const makeGetPropertiesByProductId = () => {
-  const getProductProperties = makeGetProductProperties();
-
-  return createSelector(
+export const makeGetPropertiesByProductId = () => (
+  createSelector(
     getProductDataById,
-    getProductProperties,
+    getProductPropertiesUnfiltered,
     (productData, productProperties) => {
       if (!productData) {
         return null;
@@ -28,8 +26,7 @@ export const makeGetPropertiesByProductId = () => {
 
       return additionalProperties.length ? additionalProperties : null;
     }
-  );
-};
+  ));
 
 /**
  * @returns {null|Object[]}
