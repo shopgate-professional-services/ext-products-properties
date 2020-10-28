@@ -18,7 +18,7 @@ Set the following values in your Shopgate Connect Admin:
     * `properties` (string[]) the list of product properties to show in target(s)
     * `include_values` (string[]) whitelist of properties values (to show only given)
     * `exclude_values` (string[]) blacklist of properties values (to show all except given)
-    * `use_default_layout` (boolean) use default (product details) layout for properties. When this options is active, `styles`, `format`, `html` options are ignored 
+    * `use_default_layout` (boolean) use default (product details) layout for properties. When this options is active, `format`, `html` options are ignored 
     * `styles` (json) the extra styling in css (glamor) format
     * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
         - `label` property label
