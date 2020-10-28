@@ -26,7 +26,8 @@
         "product.stock-info.before",
         "product.stock-info.after",
         "product.price-info.before",
-        "product.price-info.after"
+        "product.price-info.after",
+        "product.description.before"
       ],
       "type": "portals"
     },

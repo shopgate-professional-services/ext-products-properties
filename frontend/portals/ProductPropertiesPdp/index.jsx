@@ -25,6 +25,7 @@ const ProductPropertiesPdp = ({ name, properties }) => {
           styles={config.styles}
           format={config.format}
           isHtml={config.html === true}
+          useDefaultLayout={config.use_default_layout === true}
           properties={filterProperties(properties, config)}
         />
       ))}
