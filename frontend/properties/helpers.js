@@ -22,5 +22,14 @@ export const filterProperties = (properties, config) => {
     props = props.filter(prop => !config.exclude_values.includes(prop.value.normalize()));
   }
 
-  return props;
+  if (!props.length) {
+    return props;
+  }
+
+  // sorting
+  const sortedProps = config.properties.map(property => (
+    props.find(prop => prop.label === property)
+  )).filter(Boolean);
+
+  return sortedProps;
 };
