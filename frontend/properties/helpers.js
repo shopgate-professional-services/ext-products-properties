@@ -22,5 +22,18 @@ export const filterProperties = (properties, config) => {
     props = props.filter(prop => !config.exclude_values.includes(prop.value.normalize()));
   }
 
-  return props;
+  if (!props.length) {
+    return props;
+  }
+
+  // sorting
+  const sortedProps = [];
+  config.properties.forEach((property) => {
+    const hit = props.find(prop => prop.label === property);
+    if (hit) {
+      sortedProps.push(hit);
+    }
+  });
+
+  return sortedProps;
 };
