@@ -27,13 +27,9 @@ export const filterProperties = (properties, config) => {
   }
 
   // sorting
-  const sortedProps = [];
-  config.properties.forEach((property) => {
-    const hit = props.find(prop => prop.label === property);
-    if (hit) {
-      sortedProps.push(hit);
-    }
-  });
+  const sortedProps = config.properties.map(property => (
+    props.find(prop => prop.label === property)
+  )).filter(Boolean);
 
   return sortedProps;
 };
