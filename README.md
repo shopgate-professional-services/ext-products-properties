@@ -23,6 +23,7 @@ Set the following values in your Shopgate Connect Admin:
     * `format` (string) (optional when `html` is true) format of presentation `"{label}: {value}"`
         - `label` property label
         - `value` property value
+    * `formats` (json) the extra formats for `format` (numbers, currency, dates, etc)
     * `html` (bool) show property value as html (html sanitizer will be used, same as html widgets)
 
 ### available target positions
@@ -107,6 +108,24 @@ Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
       "target": ["product.description.before"],
       "properties": ["Hersteller"],
       "use_default_layout": true
+    },
+    {
+      "format": "Additional fee: {value, number, decimal}€",
+      "formats": {
+        "number": {
+          "decimal": {
+            "style": "decimal",
+            "maximumFractionDigits": 2,
+            "minimumFractionDigits": 2
+          }
+        }
+      },
+      "target": [
+        "product.info.after"
+      ],
+      "properties": [
+        "addFee"
+      ]
     }
   ]
 }

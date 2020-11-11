@@ -10,7 +10,7 @@ import { getIntlMessage } from '../../helpers';
  * @return {JSX}
  */
 const ProductProperties = ({
-  format, isHtml, useDefaultLayout, styles, properties,
+  format, formats, isHtml, useDefaultLayout, styles, properties,
 }) => {
   if (!format && !isHtml && !useDefaultLayout) {
     return null;
@@ -48,7 +48,7 @@ const ProductProperties = ({
           key={property.label}
           className={className}
         >
-          {getIntlMessage(format).format(property)}
+          {getIntlMessage(format, formats).format(property)}
         </div>
       ))}
     </Fragment>
@@ -57,6 +57,7 @@ const ProductProperties = ({
 
 ProductProperties.propTypes = {
   format: PropTypes.string,
+  formats: PropTypes.shape(),
   isHtml: PropTypes.bool,
   properties: PropTypes.arrayOf(PropTypes.shape()),
   styles: PropTypes.shape(),
@@ -65,6 +66,7 @@ ProductProperties.propTypes = {
 
 ProductProperties.defaultProps = {
   format: null,
+  formats: null,
   isHtml: false,
   properties: null,
   styles: null,
