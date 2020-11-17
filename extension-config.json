@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "id": "@shopgate-project/products-properties",
   "components": [
     {
@@ -23,6 +23,10 @@
         "product.name.after",
         "product.info.before",
         "product.info.after",
+        "product.shipping.before",
+        "product.shipping.after",
+        "product.availability.before",
+        "product.availability.after",
         "product.stock-info.before",
         "product.stock-info.after",
         "product.price-info.before",
