@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
 import { filterProperties } from '../../properties/helpers';
+import { withPropertiesByProductId } from '../../properties/connectors';
 
 /**
  * @param {Object} props Props
  * @return {JSX}
  */
-const ProductPropertiesFav = ({ name, product }) => {
+const ProductPropertiesFav = ({ name, properties }) => {
   const configs = useTargetConfigs(name);
 
-  const { additionalProperties } = product || {};
-  if (!additionalProperties || !configs) {
+  if (!properties || !configs) {
     return null;
   }
 
@@ -26,7 +26,7 @@ const ProductPropertiesFav = ({ name, product }) => {
           formats={config.formats}
           isHtml={config.html === true}
           useDefaultLayout={config.use_default_layout === true}
-          properties={filterProperties(additionalProperties, config)}
+          properties={filterProperties(properties, config)}
         />
       ))}
     </Fragment>
@@ -35,7 +35,13 @@ const ProductPropertiesFav = ({ name, product }) => {
 
 ProductPropertiesFav.propTypes = {
   name: PropTypes.node.isRequired,
-  product: PropTypes.shape().isRequired,
+  properties: PropTypes.arrayOf(PropTypes.shape()),
 };
 
-export default memo(ProductPropertiesFav);
+ProductPropertiesFav.defaultProps = {
+  properties: null,
+};
+
+export default withPropertiesByProductId(
+  memo(ProductPropertiesFav)
+);

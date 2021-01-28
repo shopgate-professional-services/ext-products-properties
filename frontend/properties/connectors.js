@@ -7,8 +7,20 @@ import { getPropertiesByCartItemId, makeGetPropertiesByProductId } from './selec
 export const withPropertiesByProductId = connect((state, props) => {
   const getPropertiesByProductId = makeGetPropertiesByProductId();
 
+  let mapProps = props;
+  if (!mapProps.productId && mapProps.id) {
+    mapProps = {
+      productId: mapProps.id,
+    };
+  }
+  if (!mapProps.productId && mapProps.product) {
+    mapProps = {
+      productId: mapProps.product.id,
+    };
+  }
+
   return {
-    properties: getPropertiesByProductId(state, props),
+    properties: getPropertiesByProductId(state, mapProps),
   };
 });
 
