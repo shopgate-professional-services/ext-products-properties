@@ -1,5 +1,5 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7-rc.1",
   "id": "@shopgate-project/products-properties",
   "components": [
     {
@@ -9,7 +9,9 @@
         "product-item.name.before",
         "product-item.name.after",
         "product-item.price.before",
-        "product-item.price.after"
+        "product-item.price.after",
+        "product-item.price-striked.before",
+        "product-item.price-striked.after"
       ],
       "type": "portals"
     },
@@ -31,7 +33,11 @@
         "product.stock-info.after",
         "product.price-info.before",
         "product.price-info.after",
-        "product.description.before"
+        "product.description.before",
+        "product.price.before",
+        "product.price.after",
+        "product.price-striked.before",
+        "product.price-striked.after"
       ],
       "type": "portals"
     },
@@ -53,7 +59,9 @@
         "cart.item.name.before",
         "cart.item.name.after",
         "cart.item.price.before",
-        "cart.item.price.after"
+        "cart.item.price.after",
+        "cart.item.price-striked.before",
+        "cart.item.price-striked.after"
       ],
       "type": "portals"
     }
