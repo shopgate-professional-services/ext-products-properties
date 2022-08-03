@@ -7,8 +7,8 @@ module.exports = async (context, input) => {
 
   const { products } = await getOriginalProducts(context, input)
 
-  const addProperties = getConfiguredProperties(config)
-  if (addProperties.length === 0) {
+  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
+  if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
     return { cartItems }
   }
 
@@ -22,7 +22,8 @@ module.exports = async (context, input) => {
     }
 
     const additionalProperties = product.properties.filter(prop =>
-      addProperties.includes(prop.label.toLowerCase())
+      addProperties.includes(prop.label.toLowerCase())||
+      prop.label.toLowerCase().includes(addPropertiesWithPrefix)
     )
 
     if (additionalProperties.length) {

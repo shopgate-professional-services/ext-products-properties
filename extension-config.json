@@ -82,9 +82,26 @@
         }
       }
     },
+    "addPropertiesWithPrefix": {
+      "type": "admin",
+      "destination": "backend",
+      "default": [
+        "swatchImage~"
+      ],
+      "params": {
+        "type": "json",
+        "label": "List of properties to add in json format (array of strings)",
+        "required": false,
+        "options": {
+          "placeholder": {
+            "en": "Weight,Width,Height"
+          }
+        }
+      }
+    },
     "apiCredentials": {
       "type": "bigApiCredentials",
-      "destination" : "backend"
+      "destination": "backend"
     },
     "productsProperties": {
       "type": "admin",
@@ -116,7 +133,9 @@
     },
     {
       "path": "extension/addPropertiesToGetProduct.js",
-      "hooks": ["shopgate.catalog.getProduct.v1:afterFetchProducts"],
+      "hooks": [
+        "shopgate.catalog.getProduct.v1:afterFetchProducts"
+      ],
       "input": [
         {
           "key": "products"
@@ -131,15 +150,35 @@
     },
     {
       "path": "extension/addPropertiesToVariants.js",
-      "hooks": ["shopgate.catalog.getProductVariants.v1:after"],
-      "input": [{ "key": "products" }],
-      "output": [{ "key": "products" }]
+      "hooks": [
+        "shopgate.catalog.getProductVariants.v1:after"
+      ],
+      "input": [
+        {
+          "key": "products"
+        }
+      ],
+      "output": [
+        {
+          "key": "products"
+        }
+      ]
     },
     {
       "path": "extension/addPropertiesToCartItems.js",
-      "hooks": ["shopgate.cart.getCart.v1:after"],
-      "input": [{ "key": "cartItems" }],
-      "output": [{ "key": "cartItems" }]
+      "hooks": [
+        "shopgate.cart.getCart.v1:after"
+      ],
+      "input": [
+        {
+          "key": "cartItems"
+        }
+      ],
+      "output": [
+        {
+          "key": "cartItems"
+        }
+      ]
     }
   ]
 }

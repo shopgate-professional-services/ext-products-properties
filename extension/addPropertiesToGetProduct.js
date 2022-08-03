@@ -4,8 +4,9 @@ module.exports = async (context, input) => {
   const { config } = context
   const { products } = input
 
-  const addProperties = getConfiguredProperties(config)
-  if (addProperties.length === 0 || products.length === 0) {
+  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
+  if ((addProperties.length === 0 && addPropertiesWithPrefix.length === 0)
+      || products.length === 0) {
     return
   }
 
