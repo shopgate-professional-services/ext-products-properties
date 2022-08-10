@@ -88,7 +88,7 @@
       "default": null,
       "params": {
         "type": "json",
-        "label": "List of properties with prefix to add in an array of strings format",
+        "label": "List of prefixes, which are in front of property-names in an array of strings format (e.g. the prefix 'myPrefix_' would add all properties like 'myPrefix_myProperty')",
         "required": false,
         "options": {
           "placeholder": {
