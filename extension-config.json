@@ -85,16 +85,14 @@
     "addPropertiesWithPrefix": {
       "type": "admin",
       "destination": "backend",
-      "default": [
-        "swatchImage~"
-      ],
+      "default": null,
       "params": {
         "type": "json",
-        "label": "List of properties to add in json format (array of strings)",
+        "label": "List of properties with prefix to add in an array of strings format",
         "required": false,
         "options": {
           "placeholder": {
-            "en": "Weight,Width,Height"
+            "en": "swatchImage~"
           }
         }
       }
