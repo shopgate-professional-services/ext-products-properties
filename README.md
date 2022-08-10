@@ -13,6 +13,7 @@ This extension replaces [@shopgate/products-add-properties](https://github.com/s
 Set the following values in your Shopgate Connect Admin:
 
 * `addProperties` - (csv string) Comma-separated list of properties to add to pipeline output
+* `addPropertiesWithPrefix` - (string[]) Comma-separated list of properties with prefix to add to pipeline output
 * `productsProperties` - (object[]) Configuration to show properties at given portal positions
     * `target` (string[]) the list of target portals
     * `properties` (string[]) the list of product properties to show in target(s)
