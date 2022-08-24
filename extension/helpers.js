@@ -11,10 +11,14 @@ module.exports.getConfiguredProperties = (config) => {
   if (configuredProperties === null) {
 
     const tempProperties = []
+    const tempPropertiesWithPrefix = []
 
     // Add backend properties
     if (addProperties) {
       tempProperties.push(...[].concat(addProperties))     
+    }
+    if (addPropertiesWithPrefix) {
+      tempPropertiesWithPrefix.push(...[].concat(addPropertiesWithPrefix))     
     }
     // Add frontend properties
     if (productsProperties && productsProperties.length) {
@@ -25,10 +29,7 @@ module.exports.getConfiguredProperties = (config) => {
     }
 
     configuredProperties = filterData(tempProperties);
-    
-    if (addPropertiesWithPrefix) {
-      configuredPropertiesWithPrefix = filterData(addPropertiesWithPrefix);
-    }
+    configuredPropertiesWithPrefix = filterData(tempPropertiesWithPrefix);
   }
   return {
     "addProperties": configuredProperties,
