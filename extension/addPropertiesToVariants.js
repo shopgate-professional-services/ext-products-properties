@@ -4,7 +4,7 @@ const getProductsByIds = require('./getProductsByIds.js')
 module.exports = async (context, { products }) => {
   const { config } = context
 
-  const { addProperties,addPropertiesWithPrefix } = getConfiguredProperties(config)
+  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
   if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
     return { products }
   }
