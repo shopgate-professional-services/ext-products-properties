@@ -43,7 +43,7 @@ module.exports.getConfiguredProperties = (config) => {
   }
 
   return {
-    "addProperties": configuredProperties,
-    "addPropertiesWithPrefix": configuredPropertiesWithPrefix
+    addProperties: configuredProperties,
+    addPropertiesWithPrefix: configuredPropertiesWithPrefix
   }
 }

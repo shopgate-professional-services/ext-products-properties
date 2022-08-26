@@ -5,6 +5,7 @@ module.exports = async (context, { products }) => {
   const { config } = context
 
   const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
+
   if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
     return { products }
   }
@@ -19,7 +20,7 @@ module.exports = async (context, { products }) => {
       return
     }
 
-    const additionalProperties = originalProduct.properties.filter(prop =>
+    const additionalProperties = originalProduct.properties.filter(prop => 
       addProperties.includes(prop.label.toLowerCase()) || prop.label.toLowerCase().includes(addPropertiesWithPrefix)
     )
 
