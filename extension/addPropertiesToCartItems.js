@@ -22,8 +22,10 @@ module.exports = async (context, input) => {
     }
 
     const additionalProperties = product.properties.filter(prop =>
-      addProperties.includes(prop.label.toLowerCase())||
-      prop.label.toLowerCase().includes(addPropertiesWithPrefix)
+      {
+        const label = prop.label.toLowerCase();
+        return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
+      }
     )
 
     if (additionalProperties.length) {
