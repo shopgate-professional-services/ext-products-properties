@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.DS_Store
 
 # Runtime data
 pids
@@ -58,3 +59,9 @@ typings/
 
 .idea
 package-lock.json
+
+# Extension
+extension/node_modules/
+extension/config.json
+# package lock
+extension/package-lock.json

@@ -21,12 +21,10 @@ module.exports = async (context, input) => {
       return
     }
 
-    const additionalProperties = product.properties.filter(prop =>
-      {
-        const label = prop.label.toLowerCase();
-        return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
-      }
-    )
+    const additionalProperties = product.properties.filter(prop => {
+      const label = prop.label.toLowerCase();
+      return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
+    })
 
     if (additionalProperties.length) {
       cartItem.product = {
