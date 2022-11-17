@@ -74,6 +74,9 @@ Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
     "Height",
     "ISBN"
   ],
+  "addPropertiesWithPrefix": [
+    "swatchImage~",
+  ],
   "productsProperties": [
     {
       "target": ["product-item.name.after"],
