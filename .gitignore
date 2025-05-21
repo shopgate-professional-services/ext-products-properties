@@ -63,5 +63,6 @@ package-lock.json
 # Extension
 extension/node_modules/
 extension/config.json
+frontend/config.json
 # package lock
 extension/package-lock.json
