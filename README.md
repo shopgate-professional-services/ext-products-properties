@@ -51,7 +51,12 @@ Also see [PDP portals set](./demo/PDPportals.jpg) how portals are layout
 "product.stock-info.after",
 "product.price-info.before",
 "product.price-info.after",
-"product.description.before"
+"product.description.before",
+"product.description.after",
+"product.properties.before",
+"product.properties.after",
+"product.reviews.before",
+"product.reviews.after"
 
 "favorites.product-name.before",
 "favorites.product-name.after",

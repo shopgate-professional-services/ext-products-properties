@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1-beta.1",
   "id": "@shopgate-project/products-properties",
   "components": [
     {
@@ -34,10 +34,15 @@
         "product.price-info.before",
         "product.price-info.after",
         "product.description.before",
+        "product.description.after",
         "product.price.before",
         "product.price.after",
         "product.price-striked.before",
-        "product.price-striked.after"
+        "product.price-striked.after",
+        "product.properties.before",
+        "product.properties.after",
+        "product.reviews.before",
+        "product.reviews.after"
       ],
       "type": "portals"
     },
