@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTargetConfigs } from '../../properties/hooks';
 import ProductPropertiesCmp from '../../components/ProductProperties';
@@ -17,7 +17,7 @@ const ProductPropertiesFav = ({ name, properties }) => {
   }
 
   return (
-    <Fragment>
+    <>
       {configs.map(config => (
         <ProductPropertiesCmp
           key={`${name}-${JSON.stringify(config)}`}
@@ -29,7 +29,7 @@ const ProductPropertiesFav = ({ name, properties }) => {
           properties={filterProperties(properties, config)}
         />
       ))}
-    </Fragment>
+    </>
   );
 };
 
