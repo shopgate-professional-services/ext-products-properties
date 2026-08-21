@@ -2,27 +2,36 @@ import { connect } from 'react-redux';
 import { getPropertiesByCartItemId, makeGetPropertiesByProductId } from './selectors';
 
 /**
- * Connector to get properties by product Id
+ * Creates the mapStateToProps for a single connected component instance, so that the memoization
+ * of the underlying selector is not shared between instances.
+ * @returns {Function}
  */
-export const withPropertiesByProductId = connect((state, props) => {
+function makeMapStateToProps() {
   const getPropertiesByProductId = makeGetPropertiesByProductId();
 
-  let mapProps = props;
-  if (!mapProps.productId && mapProps.id) {
-    mapProps = {
-      productId: mapProps.id,
-    };
-  }
-  if (!mapProps.productId && mapProps.product) {
-    mapProps = {
-      productId: mapProps.product.id,
-    };
-  }
+  return (state, props) => {
+    let mapProps = props;
+    if (!mapProps.productId && mapProps.id) {
+      mapProps = {
+        productId: mapProps.id,
+      };
+    }
+    if (!mapProps.productId && mapProps.product) {
+      mapProps = {
+        productId: mapProps.product.id,
+      };
+    }
 
-  return {
-    properties: getPropertiesByProductId(state, mapProps),
+    return {
+      properties: getPropertiesByProductId(state, mapProps),
+    };
   };
-});
+}
+
+/**
+ * Connector to get properties by product Id
+ */
+export const withPropertiesByProductId = connect(makeMapStateToProps);
 
 /**
  * Connector to get properties by cart Item Id
