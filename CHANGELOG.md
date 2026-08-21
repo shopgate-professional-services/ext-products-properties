@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.2] - 2026-08-21
+### Fixed
+- On the product detail page the properties of the selected variant were overwritten by the properties of the base product
+- Product properties were recalculated on every store update, because the memoization of the selector never took effect
+- A configuration with `include_values` or `exclude_values` but without `properties` threw an error
+
 ## [1.1.1] - 2025-05-21
 ### Added
 new portal positions
