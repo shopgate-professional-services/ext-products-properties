@@ -21,7 +21,7 @@ module.exports.getConfiguredProperties = (config) => {
     // Add frontend properties
     if (productsProperties && productsProperties.length) {
       tempProperties.push(...productsProperties.reduce((acc, conf) => {
-        acc.push(...conf.properties)
+        acc.push(...(conf.properties || []))
         return acc
       }, []))
     }

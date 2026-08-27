@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { withCurrentProduct } from '@shopgate/engage/core';
 import { withPropertiesByProductId } from '../../properties/connectors';
@@ -18,7 +18,7 @@ const ProductPropertiesPdp = ({ name, properties }) => {
   }
 
   return (
-    <Fragment>
+    <>
       {configs.map(config => (
         <ProductPropertiesCmp
           key={`${name}-${JSON.stringify(config)}`}
@@ -30,7 +30,7 @@ const ProductPropertiesPdp = ({ name, properties }) => {
           properties={filterProperties(properties, config)}
         />
       ))}
-    </Fragment>
+    </>
   );
 };
 

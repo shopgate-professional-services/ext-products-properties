@@ -1,5 +1,9 @@
 import { createSelector } from 'reselect';
-import { getProductDataById, getProductPropertiesUnfiltered } from '@shopgate/engage/product';
+import {
+  getProduct,
+  getProductDataById,
+  getProductPropertiesUnfiltered,
+} from '@shopgate/engage/product';
 import { getCartProducts } from '@shopgate/engage/cart';
 
 /**
@@ -7,24 +11,30 @@ import { getCartProducts } from '@shopgate/engage/cart';
  */
 export const makeGetPropertiesByProductId = () => (
   createSelector(
+    getProduct,
     getProductDataById,
     getProductPropertiesUnfiltered,
-    (productData, productProperties) => {
-      if (!productData) {
-        return null;
-      }
+    (product, baseProductData, productProperties) => {
+      const { additionalProperties: productAdditionalProperties = [] } = product || {};
+      const { additionalProperties: baseAdditionalProperties = [] } = baseProductData || {};
 
-      let { additionalProperties = [] } = productData || {};
-      if (productProperties) {
-        // Add product properties
-        additionalProperties = additionalProperties.concat(productProperties);
-        // Remove duplicates
-        additionalProperties = additionalProperties.filter((p, ind) => (
-          ind === additionalProperties.findIndex(ap => ap.label === p.label)
-        ));
-      }
+      // The sources are ordered from the most to the least specific one. getProduct() and
+      // getProductPropertiesUnfiltered() resolve via getProductId() which prefers the variantId,
+      // while getProductDataById() always resolves the productId. On the product detail page the
+      // first two therefore describe the selected variant, while the base product only contributes
+      // labels which the variant does not provide itself.
+      const properties = [].concat(
+        productProperties || [],
+        productAdditionalProperties,
+        baseAdditionalProperties
+      );
 
-      return additionalProperties.length ? additionalProperties : null;
+      // Remove duplicates
+      const uniqueProperties = properties.filter((p, ind) => (
+        ind === properties.findIndex(ap => ap.label === p.label)
+      ));
+
+      return uniqueProperties.length ? uniqueProperties : null;
     }
   ));
 

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import { HtmlSanitizer } from '@shopgate/engage/components';
@@ -28,7 +28,7 @@ const ProductProperties = ({
 
   if (isHtml) {
     return (
-      <Fragment>
+      <>
         {properties.map(property => (
           <HtmlSanitizer
             key={property.label}
@@ -37,12 +37,12 @@ const ProductProperties = ({
             {property.value}
           </HtmlSanitizer>
         ))}
-      </Fragment>
+      </>
     );
   }
 
   return (
-    <Fragment>
+    <>
       {properties.map(property => (
         <div
           key={property.label}
@@ -51,7 +51,7 @@ const ProductProperties = ({
           {getIntlMessage(format, formats).format(property)}
         </div>
       ))}
-    </Fragment>
+    </>
   );
 };
 
