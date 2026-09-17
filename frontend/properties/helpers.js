@@ -22,7 +22,7 @@ export const filterProperties = (properties, config) => {
     props = props.filter(prop => !config.exclude_values.includes(prop.value.normalize()));
   }
 
-  if (!props.length) {
+  if (!props.length || !config.properties) {
     return props;
   }
 
