@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'glamor';
+import { css } from '@shopgate/engage/styles';
 import { HtmlSanitizer } from '@shopgate/engage/components';
 import DefaultPropertiesCmp from '@shopgate/engage/product/components/ProductProperties/Content';
 import { getIntlMessage } from '../../helpers';
@@ -16,7 +16,7 @@ const ProductProperties = ({
     return null;
   }
 
-  const className = css(styles).toString();
+  const className = css(styles);
 
   if (useDefaultLayout) {
     return (
