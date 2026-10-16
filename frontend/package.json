@@ -4,13 +4,16 @@
   "description": "Additional Product Properties",
   "license": "Apache-2.0",
   "scripts": {
-    "lint": "eslint --ignore-path ../.gitignore --ext .js --ext .jsx .",
-    "test": "jest"
+    "lint": "eslint --ignore-path ../.gitignore --ext .js,.jsx .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage",
+    "coverage:watch": "jest --coverage --watch"
   },
   "devDependencies": {
-    "@shopgate/engage": "^7.32.0-beta.19",
-    "@shopgate/eslint-config": "^7.31.8",
-    "@shopgate/pwa-unit-test": "^7.31.8",
+    "@shopgate/engage": "^7.33.2",
+    "@shopgate/eslint-config": "^7.33.2",
+    "@shopgate/pwa-unit-test": "^7.33.2",
     "eslint": "^8.57.1",
     "prop-types": "~15.8.1",
     "react": "^17.0.2",
@@ -19,7 +22,7 @@
     "reselect": "^4.1.8"
   },
   "peerDependencies": {
-    "@shopgate/engage": ">=7.32.0-beta.19"
+    "@shopgate/engage": ">=7.32.0"
   },
   "dependencies": {
     "intl-messageformat": "^11.2.9"
