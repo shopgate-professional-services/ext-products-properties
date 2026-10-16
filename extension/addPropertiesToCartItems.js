@@ -22,7 +22,7 @@ module.exports = async (context, input) => {
     }
 
     const additionalProperties = product.properties.filter(prop => {
-      const label = prop.label.toLowerCase();
+      const label = prop.label.toLowerCase()
       return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
     })
 

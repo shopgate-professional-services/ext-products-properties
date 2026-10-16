@@ -1,11 +1,11 @@
 const getApiClient = require('./api/getApiClient')
 
 const getChunksOfArray = (array, chunkSize) => {
-  const chunks = [];
+  const chunks = []
   for (let i = 0; i < array.length; i += chunkSize) {
-      chunks.push(array.slice(i, i + chunkSize));
+    chunks.push(array.slice(i, i + chunkSize))
   }
-  return chunks;
+  return chunks
 }
 
 /**
@@ -29,20 +29,19 @@ module.exports = async (context, { productIds }) => {
           productNumbers: productIdsChunk.join(',')
         }
       })
-  
+
       return result
     } catch (err) {
       context.log.warn(err, 'Error requesting bigapi for original products')
-  
+
       return []
     }
   }
 
-  for (let chunk of chunks) {
-    const result = await request(chunk);
-    collection = [...collection, ...result];
+  for (const chunk of chunks) {
+    const result = await request(chunk)
+    collection = [...collection, ...result]
   }
 
-  return { collection };
-
+  return { collection }
 }

@@ -1,5 +1,18 @@
 const assert = require('assert')
-const subjectUnderTest = require('../../addProperties')
+
+const helpersPath = require.resolve('../../helpers')
+const subjectPath = require.resolve('../../addProperties')
+
+/**
+ * The configured properties are cached in module scope, so every test needs a fresh copy.
+ * @return {Function}
+ */
+const loadSubject = () => {
+  delete require.cache[helpersPath]
+  delete require.cache[subjectPath]
+  return require(subjectPath)
+}
+
 const getProductsResult = () => ({
   products: [
     {
@@ -24,9 +37,9 @@ const getProductsResult = () => ({
 
 describe('addProperties', () => {
   it('should add properties if they are configured', async () => {
-    const { products } = await subjectUnderTest({
+    const { products } = await loadSubject()({
       config: {
-        addProperties: 'foo,added'
+        addProperties: ['foo', 'added']
       }
     }, getProductsResult())
     assert.deepStrictEqual(products[0].additionalProperties, [
@@ -41,10 +54,10 @@ describe('addProperties', () => {
     ])
   })
 
-  it('should add properties if they are configured - independent of case', async () => {
-    const { products } = await subjectUnderTest({
+  it('should add properties if they are configured - independent of the configured case', async () => {
+    const { products } = await loadSubject()({
       config: {
-        addProperties: 'foo,Added'
+        addProperties: ['foo', 'Added']
       }
     }, getProductsResult())
     assert.deepStrictEqual(products[0].additionalProperties, [
@@ -59,13 +72,13 @@ describe('addProperties', () => {
     ])
   })
 
-  it('should add properties if they are configured - independent of case', async () => {
+  it('should add properties if they are configured - independent of the label case', async () => {
     const input = getProductsResult()
     input.products[0].properties[0].label = 'Added'
 
-    const { products } = await subjectUnderTest({
+    const { products } = await loadSubject()({
       config: {
-        addProperties: 'foo,added'
+        addProperties: ['foo', 'added']
       }
     }, input)
     assert.deepStrictEqual(products[0].additionalProperties, [
@@ -80,19 +93,36 @@ describe('addProperties', () => {
     ])
   })
 
-  it('should not do anything if no property is matched', async () => {
-    const { products } = await subjectUnderTest({
+  it('should add properties that start with a configured prefix', async () => {
+    const input = getProductsResult()
+    input.products[0].properties[2].label = 'myPrefix_foo'
+
+    const { products } = await loadSubject()({
       config: {
-        addProperties: 'nomatch,nonomatch'
+        addPropertiesWithPrefix: ['myPrefix_']
+      }
+    }, input)
+    assert.deepStrictEqual(products[0].additionalProperties, [
+      {
+        label: 'myPrefix_foo',
+        value: 'bar'
+      }
+    ])
+  })
+
+  it('should not do anything if no property is matched', async () => {
+    const { products } = await loadSubject()({
+      config: {
+        addProperties: ['nomatch', 'nonomatch']
       }
     }, getProductsResult())
     assert.deepStrictEqual({ products }, getProductsResult())
   })
 
   it('should not do anything if no property is configured to be added', async () => {
-    const { products } = await subjectUnderTest({
+    const { products } = await loadSubject()({
       config: {
-        addProperties: ''
+        addProperties: null
       }
     }, getProductsResult())
     assert.deepStrictEqual({ products }, getProductsResult())
