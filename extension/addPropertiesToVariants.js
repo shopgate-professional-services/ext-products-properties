@@ -3,7 +3,7 @@ const getProductsByIds = require('./getProductsByIds.js')
 
 module.exports = async (context, { products }) => {
   const { config } = context
-  
+
   const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
 
   if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
@@ -20,9 +20,9 @@ module.exports = async (context, { products }) => {
     if (!originalProduct) {
       return
     }
-    
+
     const additionalProperties = originalProduct.properties.filter(prop => {
-      const label = prop.label.toLowerCase();
+      const label = prop.label.toLowerCase()
       return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
     })
 

@@ -4,7 +4,7 @@ module.exports = async (context, input) => {
   const { config } = context
   let { products } = input
 
-  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config);
+  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
 
   if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
     return { products }
@@ -12,7 +12,7 @@ module.exports = async (context, input) => {
 
   products = products.map(product => {
     const additionalProperties = product.properties.filter(prop => {
-      const label = prop.label.toLowerCase();
+      const label = prop.label.toLowerCase()
       return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
     })
 

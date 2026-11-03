@@ -27,14 +27,14 @@ Two independent npm packages with no root `package.json`. They do not share tool
   `@shopgate/bigapi-requester`. Lint via the `standard` CLI, tests via mocha and
   node `assert`.
 - `frontend/` — React 17 portal components. ES modules and JSX, `react-redux` 8,
-  `reselect` 4, `glamor` for styles. Lint via `eslint` 8 with
+  `reselect` 4, `css` from `@shopgate/engage/styles` for styles. Lint via `eslint` 8 with
   `@shopgate/eslint-config`, tests via jest from `@shopgate/pwa-unit-test`.
 
 ## Common Commands
 
 Run these from inside one of the two package directories — there is no root package.
 
-Backend (`extension/`), from `extension/package.json` and `.travis.yml`:
+Backend (`extension/`), from `extension/package.json`:
 
 ```
 npm install
@@ -46,9 +46,10 @@ npm audit
 Frontend (`frontend/`), from `frontend/package.json`:
 
 ```
-npm install        # not stated in any repo file, but required for the devDependencies
+npm ci             # installs from the committed package-lock.json
 npm run lint       # eslint, uses the root .gitignore as its ignore file
 npm test           # jest, config re-exported from @shopgate/pwa-unit-test
+npm run coverage   # jest with coverage report
 ```
 
 Neither half has a build step; the theme builds the frontend. Nothing in this
@@ -93,10 +94,10 @@ Do not copy Knowledge Base content into this file. Keep AGENTS.md focused on thi
   `extension/api/getApiClient.js` requires its copy **at module load**, and
   `frontend/properties/hooks.js` imports its copy as a default import. Any backend
   file that transitively reaches `getApiClient` cannot be required without it.
-- `extension/.npmrc` pins the `@shopgate` scope to an internal Sinopia registry over
-  plain HTTP, so installing `extension/` needs access to that host. `frontend/` has
-  no `.npmrc` and resolves `@shopgate/*` from the default registry. No lockfiles are
-  committed anywhere, so installs are unpinned.
+- `extension/.npmrc` pins the `@shopgate` scope to the internal Sinopia registry
+  (`https://sinopia.shopgate.services/`), so installing `extension/` needs access to that
+  host (VPN). `frontend/` has no `.npmrc` and resolves `@shopgate/*` from the default
+  registry. Both halves commit their `package-lock.json`.
 - The `productsProperties` admin key has `destination: both`. The backend folds
   every configured `properties` entry into its own fetch list, so changing the
   frontend display config also changes backend behaviour.
@@ -107,22 +108,17 @@ Do not copy Knowledge Base content into this file. Keep AGENTS.md focused on thi
 - Frontend: jest, co-located `*.spec.js`.
 - `extension/helpers.js` caches its parsed config in module scope — the first config
   seen in a process wins for the process lifetime. Tests must bust the require
-  cache; only `helpers-test.js` does.
-- Two backend suites are broken as inherited, independent of any current work.
-  `addProperties-test.js` passes `addProperties` as a CSV string that the
-  implementation no longer splits, so several cases fail.
-  `addPropertiesToCartItems-test.js` cannot be loaded at all, because it reaches the
-  generated `config.json`, and its fixtures omit the `type: 'product'` field the step
-  filters on. Do not assume a red backend suite was caused by your change.
+  cache before each case, as all backend suites do.
+- `addPropertiesToCartItems-test.js` replaces `getProductsByIds` in the require cache, so
+  the backend tests need neither the generated `config.json` nor the API client.
+- The admin keys `addProperties` and `addPropertiesWithPrefix` are JSON arrays of strings;
+  test configs use arrays as well.
 
 ## Deployment / CI Notes
 
-- `.travis.yml` is the entire pipeline: Node 8, then `npm audit`, `npm t` and
-  `npm run standard` — **all three scoped to `extension/`**.
-- `frontend/` is not installed, linted or tested by CI. Run its lint and tests
-  yourself before opening a pull request.
-- `npm run standard` does not currently pass: several backend files carry semicolons
-  and trailing whitespace that `standard` forbids.
+- There is no CI pipeline. Run lint and tests of both halves yourself before
+  opening a pull request.
+- `npm run standard` passes; keep it that way, `npx standard --fix` corrects most findings.
 
 ## Project-Specific Pitfalls
 
