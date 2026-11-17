@@ -14,7 +14,7 @@ Set the following values in your Shopgate Connect Admin:
 
 * `addProperties` - (csv string) Comma-separated list of properties to add to pipeline output
 * `addPropertiesWithPrefix` - (string[]) Comma-separated list of prefixes, which are in front of property-names to add to pipeline output (e.g. the prefix "myPrefix_" would add all properties like "myPrefix_myProperty")
-* `addIdentifiers` - (object) Product identifiers to add as properties. Each key is an identifier of the product (e.g. `sku`, `ean`), each value the label of the added property. The added property can be shown with `productsProperties` like any other property, using the label as property name. An identifier is skipped when the product has no value for it or already has a property with the same label.
+* `addIdentifiers` - (object) Product identifiers to add as properties. Each key is an identifier of the product, each value the label of the added property. Valid keys are `sku`, `ean`, `isbn`, `upc` and `mpn`. In the cart, identifiers are only added when the cart item or the product service delivers them (not on Shopware 6). The added property can be shown with `productsProperties` like any other property, using the label as property name. An identifier is skipped when the product has no value for it or already has a property with the same label.
 * `productsProperties` - (object[]) Configuration to show properties at given portal positions
     * `target` (string[]) the list of target portals
     * `properties` (string[]) the list of product properties to show in target(s)

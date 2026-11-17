@@ -1,4 +1,4 @@
-const { buildAdditionalProperties, hasConfiguredAdditions } = require('./helpers')
+const { buildAdditionalProperties, getConfiguredProperties, hasConfiguredAdditions } = require('./helpers')
 const getProductsByIds = require('./getProductsByIds.js')
 
 module.exports = async (context, { products }) => {
@@ -8,21 +8,21 @@ module.exports = async (context, { products }) => {
     return { products }
   }
 
-  const productIds = products.map(p => p.id)
-
-  const { collection } = await getProductsByIds(context, { productIds })
+  // The variant properties come from the product service; identifiers are read from the mapped
+  // step input, so a config with identifiers only needs no request.
+  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
+  let collection = []
+  if (addProperties.length || addPropertiesWithPrefix.length) {
+    ({ collection } = await getProductsByIds(context, { productIds: products.map(p => p.id) }))
+  }
 
   products.forEach(product => {
     const originalProduct = collection.find(p => p.id === product.id)
 
-    if (!originalProduct) {
-      return
-    }
-
     const additionalProperties = buildAdditionalProperties(
       config,
-      originalProduct.properties,
-      originalProduct.identifiers || product.identifiers
+      originalProduct ? originalProduct.properties : [],
+      product.identifiers
     )
 
     if (additionalProperties.length) {
