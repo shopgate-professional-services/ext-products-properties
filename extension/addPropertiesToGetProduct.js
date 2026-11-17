@@ -1,12 +1,11 @@
-const { getConfiguredProperties } = require('./helpers')
+const { hasConfiguredAdditions } = require('./helpers')
 
 module.exports = async (context, input) => {
   const { config } = context
   const { products } = input
 
-  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
-  if ((addProperties.length === 0 && addPropertiesWithPrefix.length === 0) || products.length === 0) {
-    return
+  if (!hasConfiguredAdditions(config) || products.length === 0) {
+    return {}
   }
 
   const product = products[0]

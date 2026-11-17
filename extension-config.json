@@ -102,6 +102,21 @@
         }
       }
     },
+    "addIdentifiers": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "json",
+        "label": "Product identifiers to add as properties in json format (object of identifier key and property label)",
+        "required": false,
+        "options": {
+          "placeholder": {
+            "en": "{\"sku\": \"Article no.\"}"
+          }
+        }
+      }
+    },
     "apiCredentials": {
       "type": "bigApiCredentials",
       "destination": "backend"

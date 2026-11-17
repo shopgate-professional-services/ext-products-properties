@@ -112,7 +112,8 @@ Do not copy Knowledge Base content into this file. Keep AGENTS.md focused on thi
 - `addPropertiesToCartItems-test.js` replaces `getProductsByIds` in the require cache, so
   the backend tests need neither the generated `config.json` nor the API client.
 - The admin keys `addProperties` and `addPropertiesWithPrefix` are JSON arrays of strings;
-  test configs use arrays as well.
+  test configs use arrays as well. `addIdentifiers` is a JSON object (identifier key →
+  property label) and is read on every call, not cached like the other keys.
 
 ## Deployment / CI Notes
 

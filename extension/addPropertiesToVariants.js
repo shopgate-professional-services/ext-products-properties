@@ -1,12 +1,10 @@
-const { getConfiguredProperties } = require('./helpers')
+const { buildAdditionalProperties, hasConfiguredAdditions } = require('./helpers')
 const getProductsByIds = require('./getProductsByIds.js')
 
 module.exports = async (context, { products }) => {
   const { config } = context
 
-  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
-
-  if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
+  if (!hasConfiguredAdditions(config)) {
     return { products }
   }
 
@@ -21,10 +19,11 @@ module.exports = async (context, { products }) => {
       return
     }
 
-    const additionalProperties = originalProduct.properties.filter(prop => {
-      const label = prop.label.toLowerCase()
-      return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
-    })
+    const additionalProperties = buildAdditionalProperties(
+      config,
+      originalProduct.properties,
+      originalProduct.identifiers || product.identifiers
+    )
 
     if (additionalProperties.length) {
       product.additionalProperties = additionalProperties
