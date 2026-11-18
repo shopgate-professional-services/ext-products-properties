@@ -193,4 +193,44 @@ describe('addPropertiesToCartItems', () => {
     )
     assert.deepStrictEqual({ cartItems }, getCartResult())
   })
+
+  it('should add configured identifiers of the shop item as properties', async () => {
+    const input = getCartResult()
+    input.cartItems[0].product.shopItem.identifiers = { sku: '740598' }
+
+    const { cartItems } = await loadSubject()(
+      {
+        config: {
+          addIdentifiers: { sku: 'Artikel-Nr.' }
+        }
+      },
+      input
+    )
+    assert.deepStrictEqual(cartItems[0].product.additionalProperties, [
+      {
+        label: 'Artikel-Nr.',
+        value: '740598'
+      }
+    ])
+  })
+
+  it('should add configured identifiers of fetched products as properties', async () => {
+    const input = getCartResult()
+    delete input.cartItems[0].product.shopItem
+
+    const { cartItems } = await loadSubject([{ id: '1', properties: getProperties(), identifiers: { sku: '740598' } }])(
+      {
+        config: {
+          addIdentifiers: { sku: 'Artikel-Nr.' }
+        }
+      },
+      input
+    )
+    assert.deepStrictEqual(cartItems[0].product.additionalProperties, [
+      {
+        label: 'Artikel-Nr.',
+        value: '740598'
+      }
+    ])
+  })
 })

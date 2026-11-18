@@ -75,4 +75,45 @@ describe('helpers', () => {
     })
     assert.deepStrictEqual(props.addProperties, ['isbn', 'bonus points'])
   })
+
+  it('should get the configured identifiers', () => {
+    const identifiers = loadHelpers().getConfiguredIdentifiers({
+      addIdentifiers: { sku: 'Article no.', ean: 'EAN', mpn: '', upc: null }
+    })
+    assert.deepStrictEqual(identifiers, [
+      { key: 'sku', label: 'Article no.' },
+      { key: 'ean', label: 'EAN' }
+    ])
+  })
+
+  it('should ignore an addIdentifiers setting that is no object', () => {
+    const helpers = loadHelpers()
+    assert.deepStrictEqual(helpers.getConfiguredIdentifiers({ addIdentifiers: ['sku'] }), [])
+    assert.deepStrictEqual(helpers.getConfiguredIdentifiers({ addIdentifiers: 'sku' }), [])
+    assert.deepStrictEqual(helpers.getConfiguredIdentifiers({ addIdentifiers: null }), [])
+    assert.deepStrictEqual(helpers.getConfiguredIdentifiers({}), [])
+  })
+
+  it('should report configured additions for identifiers only', () => {
+    assert.strictEqual(loadHelpers().hasConfiguredAdditions({ addIdentifiers: { sku: 'Article no.' } }), true)
+    assert.strictEqual(loadHelpers().hasConfiguredAdditions({ addIdentifiers: null }), false)
+  })
+
+  it('should not add an identifier when a property with the same label was picked', () => {
+    const additionalProperties = loadHelpers().buildAdditionalProperties(
+      { addProperties: ['Article no.'], addIdentifiers: { sku: 'Article no.' } },
+      [{ label: 'article no.', value: 'from property' }],
+      { sku: 'from identifier' }
+    )
+    assert.deepStrictEqual(additionalProperties, [{ label: 'article no.', value: 'from property' }])
+  })
+
+  it('should skip identifiers without a value and stringify numbers', () => {
+    const additionalProperties = loadHelpers().buildAdditionalProperties(
+      { addIdentifiers: { sku: 'Article no.', ean: 'EAN', mpn: 'MPN' } },
+      [],
+      { sku: 12345, ean: '', mpn: null }
+    )
+    assert.deepStrictEqual(additionalProperties, [{ label: 'Article no.', value: '12345' }])
+  })
 })

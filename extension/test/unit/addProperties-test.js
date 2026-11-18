@@ -127,4 +127,52 @@ describe('addProperties', () => {
     }, getProductsResult())
     assert.deepStrictEqual({ products }, getProductsResult())
   })
+
+  it('should add configured identifiers as properties after the picked properties', async () => {
+    const input = getProductsResult()
+    input.products[0].identifiers = { sku: '740598', ean: '4052792042498' }
+
+    const { products } = await loadSubject()({
+      config: {
+        addProperties: ['foo'],
+        addIdentifiers: { sku: 'Artikel-Nr.' }
+      }
+    }, input)
+    assert.deepStrictEqual(products[0].additionalProperties, [
+      {
+        label: 'foo',
+        value: 'bar'
+      },
+      {
+        label: 'Artikel-Nr.',
+        value: '740598'
+      }
+    ])
+  })
+
+  it('should add configured identifiers when no property is configured', async () => {
+    const input = getProductsResult()
+    input.products[0].identifiers = { sku: '740598' }
+
+    const { products } = await loadSubject()({
+      config: {
+        addIdentifiers: { sku: 'Artikel-Nr.' }
+      }
+    }, input)
+    assert.deepStrictEqual(products[0].additionalProperties, [
+      {
+        label: 'Artikel-Nr.',
+        value: '740598'
+      }
+    ])
+  })
+
+  it('should not do anything if the product has no identifiers', async () => {
+    const { products } = await loadSubject()({
+      config: {
+        addIdentifiers: { sku: 'Artikel-Nr.' }
+      }
+    }, getProductsResult())
+    assert.deepStrictEqual({ products }, getProductsResult())
+  })
 })

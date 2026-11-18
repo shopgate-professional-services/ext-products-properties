@@ -1,6 +1,6 @@
 {
   "name": "@shopgate-project/products-properties",
-  "version": "1.1.2",
+  "version": "2.1.0",
   "description": "Additional Product Properties",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@shopgate/bigapi-requester": "^3.1.1"
+    "@shopgate/bigapi-requester": "^4.3.3"
   },
   "devDependencies": {
     "mocha": "^7.1.1",

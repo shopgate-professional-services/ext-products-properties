@@ -1,20 +1,15 @@
-const { getConfiguredProperties } = require('./helpers')
+const { buildAdditionalProperties, hasConfiguredAdditions } = require('./helpers')
 
 module.exports = async (context, input) => {
   const { config } = context
   let { products } = input
 
-  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
-
-  if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
+  if (!hasConfiguredAdditions(config)) {
     return { products }
   }
 
   products = products.map(product => {
-    const additionalProperties = product.properties.filter(prop => {
-      const label = prop.label.toLowerCase()
-      return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
-    })
+    const additionalProperties = buildAdditionalProperties(config, product.properties, product.identifiers)
 
     if (additionalProperties.length) {
       return Object.assign(product, { additionalProperties })

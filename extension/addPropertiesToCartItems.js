@@ -1,4 +1,4 @@
-const { getConfiguredProperties } = require('./helpers')
+const { buildAdditionalProperties, hasConfiguredAdditions } = require('./helpers')
 const getOriginalProducts = require('./getOriginalProducts')
 
 module.exports = async (context, input) => {
@@ -7,8 +7,7 @@ module.exports = async (context, input) => {
 
   const { products } = await getOriginalProducts(context, input)
 
-  const { addProperties, addPropertiesWithPrefix } = getConfiguredProperties(config)
-  if (addProperties.length === 0 && addPropertiesWithPrefix.length === 0) {
+  if (!hasConfiguredAdditions(config)) {
     return { cartItems }
   }
 
@@ -21,10 +20,7 @@ module.exports = async (context, input) => {
       return
     }
 
-    const additionalProperties = product.properties.filter(prop => {
-      const label = prop.label.toLowerCase()
-      return addProperties.includes(label) || addPropertiesWithPrefix.map(propWithPrefix => label.includes(propWithPrefix)).includes(true)
-    })
+    const additionalProperties = buildAdditionalProperties(config, product.properties, product.identifiers)
 
     if (additionalProperties.length) {
       cartItem.product = {

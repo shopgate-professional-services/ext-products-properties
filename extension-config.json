@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "id": "@shopgate-project/products-properties",
   "components": [
     {
@@ -98,6 +98,21 @@
         "options": {
           "placeholder": {
             "en": "swatchImage~"
+          }
+        }
+      }
+    },
+    "addIdentifiers": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "json",
+        "label": "Product identifiers to add as properties in json format (object of identifier key and property label)",
+        "required": false,
+        "options": {
+          "placeholder": {
+            "en": "{\"sku\": \"Article no.\"}"
           }
         }
       }
